@@ -1,8 +1,9 @@
 # test_tenang
 
 Project not done yet
-- Login Firebase still not done
-- Rest Api users little more time
+- Login Firebase done
+- Rest Api done
+- its not complete but it work 
 
 ## Getting Started
 
