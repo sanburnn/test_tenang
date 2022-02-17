@@ -11,6 +11,7 @@ class Searchdoctor extends StatefulWidget {
 }
 
 class _SearchdoctorState extends State<Searchdoctor> {
+  final con = PostDataProvider();
   bool isLoading = false;
   @override
   void initState() {

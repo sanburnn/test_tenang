@@ -56,6 +56,16 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 7,
           ),
+          Text(
+            'Category',
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xff4E4B66)),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             children: <Widget>[
               Column(

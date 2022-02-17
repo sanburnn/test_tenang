@@ -226,7 +226,7 @@ class UsersState extends State<Users> {
                 bottom: 20,
                 left: 50,
                 child: Text(
-                  'Powered by Team MBKM Jong Java',
+                  'Powered by Dimas MF',
                   style: TextStyle(
                       fontFamily: 'Open Sans',
                       fontSize: 15,
