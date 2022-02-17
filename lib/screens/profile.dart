@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:test_tenang/screens/intro.dart';
+import 'package:test_tenang/services/FirebaseService.dart';
 
 class Users extends StatefulWidget {
   @override
@@ -20,7 +23,8 @@ class UsersState extends State<Users> {
   //         builder: (context) => IntroPage(),
   //       ));
   // }
-
+  bool isLoading = false;
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -68,10 +72,29 @@ class UsersState extends State<Users> {
                   Center(
                     child: CircleAvatar(
                       radius: 75,
-                      backgroundImage: AssetImage('assets/images/profile.png'),
+                      backgroundImage: NetworkImage(user!.photoURL!),
                       backgroundColor: Colors.grey,
                     ),
                   ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Center(
+                      child: Text(
+                    user!.displayName!,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff4E4B66)),
+                  )),
+                  Center(
+                      child: Text(
+                    user!.email!,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff4E4B66)),
+                  )),
                   SizedBox(
                     height: 50,
                   ),
@@ -82,7 +105,7 @@ class UsersState extends State<Users> {
                 ],
               ),
               Positioned(
-                bottom: 180,
+                bottom: 150,
                 child: Column(
                   children: [
                     Padding(
@@ -141,9 +164,28 @@ class UsersState extends State<Users> {
                             shape: RoundedRectangleBorder(),
                             backgroundColor: Color(0xFFF5F6F9),
                           ),
-                          onPressed: () {}
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            FirebaseService service = new FirebaseService();
+                            try {
+                              await service.signOutFromGoogle();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => IntroPage()));
+                            } catch (e) {
+                              if (e is FirebaseAuthException) {
+                                showMessage(e.message!);
+                              }
+                            }
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
                           // => logOut()
-                          ,
+
                           child: Row(
                             children: [
                               SizedBox(
@@ -207,5 +249,24 @@ class UsersState extends State<Users> {
         ),
       ),
     );
+  }
+
+  void showMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }

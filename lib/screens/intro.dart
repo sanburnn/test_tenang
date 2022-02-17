@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:test_tenang/screens/homepage.dart';
 import 'package:test_tenang/screens/login.dart';
+import 'package:test_tenang/screens/mainpage.dart';
 
 class IntroPage extends StatefulWidget {
   IntroPage({Key? key}) : super(key: key);
@@ -20,6 +23,7 @@ class _IntroPageState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
+    User? result = FirebaseAuth.instance.currentUser;
     final List<PageViewModel> pages = [
       PageViewModel(
         titleWidget: Column(
@@ -224,8 +228,15 @@ class _IntroPageState extends State<IntroPage> {
                             onPrimary: Colors.white,
                             shape: StadiumBorder()),
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Login()));
+                          result == null
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Login()))
+                              : Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainPage()));
                         },
                         child: const Text('Masuk Aplikasi!'),
                       ),

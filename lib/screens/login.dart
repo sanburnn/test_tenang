@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:test_tenang/screens/homepage.dart';
 import 'package:test_tenang/screens/mainpage.dart';
 import 'package:test_tenang/screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:test_tenang/services/FirebaseService.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class _LoginState extends State<Login> {
   bool validate = false;
   bool inHiddenPass = true;
   bool _isHidden = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +26,6 @@ class _LoginState extends State<Login> {
       body: SafeArea(
         child: ListView(
           children: [
-            Container(
-                padding: EdgeInsets.all(10),
-                height: 70,
-                child: Row(
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios_new_rounded,
-                          size: 32,
-                          color: Color(0xff85d057),
-                        )),
-                  ],
-                )),
             Container(
               padding: EdgeInsets.all(15.0),
               child: Column(
@@ -166,15 +153,15 @@ class _LoginState extends State<Login> {
                                     // foreground
                                     ),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MainPage()));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => MainPage()));
                                 }
                                 // => login()
                                 ,
                                 child: Text(
-                                  'Login',
+                                  'Login Pakai Tombol Google Dibawah',
                                   style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold,
@@ -197,7 +184,29 @@ class _LoginState extends State<Login> {
                               child: Row(
                                 children: [
                                   OutlinedButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      FirebaseService service =
+                                          new FirebaseService();
+                                      try {
+                                        await service.signInwithGoogle();
+
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MainPage()));
+                                      } catch (e) {
+                                        if (e is FirebaseAuthException) {
+                                          showMessage(e.message!);
+                                        }
+                                      }
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    },
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -315,5 +324,24 @@ class _LoginState extends State<Login> {
     setState(() {
       _isHidden = !_isHidden;
     });
+  }
+
+  void showMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "822061920415",
+    "firebase_url": "https://sinform-967f7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sinform-967f7",
+    "storage_bucket": "sinform-967f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822061920415:android:9badf5d91b8afaa2e1f2aa",
+        "android_client_info": {
+          "package_name": "com.company.test_tenang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822061920415-5vkgi4vmmu5sbnlaf8mjm94palcuv0b6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.test_tenang",
+            "certificate_hash": "37194919db6b936336124fc0e5de3f95050fe11d"
+          }
+        },
+        {
+          "client_id": "822061920415-49osmj7a781v4r5f2cck94np9i6nvfgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWRSu5f5ZEOE8ahkXf6ymI2NZT-tO8l7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822061920415-49osmj7a781v4r5f2cck94np9i6nvfgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
