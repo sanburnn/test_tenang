@@ -12,17 +12,6 @@ class Users extends StatefulWidget {
 }
 
 class UsersState extends State<Users> {
-  // final con = HomeController();
-
-  // void logOut() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   await preferences.clear();
-  //   Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => IntroPage(),
-  //       ));
-  // }
   bool isLoading = false;
   User? user = FirebaseAuth.instance.currentUser;
   @override

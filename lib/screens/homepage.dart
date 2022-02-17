@@ -101,6 +101,28 @@ class _HomeState extends State<Home> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   )
                 ],
+              ),
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: SizedBox(
+                        height: 65,
+                        child: Image(
+                            image: AssetImage('assets/images/takut.png'))),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xffF4F5F7),
+                      shape: CircleBorder(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Trust Issue',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
               )
             ],
           ),
